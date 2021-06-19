@@ -1,4 +1,4 @@
-package com.innotech.education.models;
+package com.innotech.education.entity;
 
 
 import lombok.Getter;

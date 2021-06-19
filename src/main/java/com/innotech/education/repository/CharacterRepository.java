@@ -1,8 +1,6 @@
-package com.innotech.education.repositories;
+package com.innotech.education.repository;
 
-import com.innotech.education.models.Body;
-import com.innotech.education.models.Character;
-import com.innotech.education.models.User;
+import com.innotech.education.entity.Character;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CharacterRepository extends JpaRepository<Character, Long> {

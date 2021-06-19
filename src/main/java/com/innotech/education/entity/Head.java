@@ -1,4 +1,4 @@
-package com.innotech.education.models;
+package com.innotech.education.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +12,8 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "legs_table")
-public class Legs {
+@Table(name = "head_table")
+public class Head {
 
     @Id
     private long id;

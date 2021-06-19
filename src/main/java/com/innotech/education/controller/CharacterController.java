@@ -1,12 +1,10 @@
-package com.innotech.education.controllers;
+package com.innotech.education.controller;
 
-import com.innotech.education.models.Character;
-import com.innotech.education.services.CharacterService;
-import com.innotech.education.services.UserService;
+import com.innotech.education.entity.Character;
+import com.innotech.education.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,8 +16,6 @@ public class CharacterController {
 
     @Autowired
     private CharacterService characterService;
-    @Autowired
-    private UserService userService;
 
     @RequestMapping(value = "/character", method = RequestMethod.GET)
     public ModelAndView character() {
