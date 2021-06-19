@@ -20,5 +20,5 @@ public class Head {
 
     private int price;
     private int isBought;
-    String bodyPicture;
+    String headPicture;
 }

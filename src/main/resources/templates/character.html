@@ -7,12 +7,18 @@
 <body>
 <div>
     <div class="alert alert-warning mt-3">
-        <b>Голова: <span th:text="head"></span></b><br />
-        <b>Тело: <span th:text="body"></span></b><br />
-        <b>Ноги: <span th:text="legs"></span></b>
+        <b>Имя: <span th:text="${user.getUsername()}"></span></b><br />
+        <b>Уровень: <span th:text="${user.getCharacter().getLevel()}"></span></b><br />
+        <b>innoCoin: <span th:text="${user.getCharacter().getScore()}"></span></b><br />
+        
+        <b>Голова:</span></b><br />
+        <img class="img-thumbnail" th:src="${user.getCharacter().getHead().getHeadPicture()}"/>
+        <b>Тело: </span></b><br />
+        <img class="img-thumbnail" th:src="${user.getCharacter().getBody().getBodyPicture()}"/>
+        <b>Ноги: </span></b>
+        <img class="img-thumbnail" th:src="${user.getCharacter().getLegs().getLegsPicture()}"/>
+
     </div>
-    <hr />
-    <a class="btn btn-danger mb-5" href="/checkout">Заказать</a>
 </div>
 </body>
 </html>

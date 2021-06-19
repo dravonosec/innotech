@@ -18,7 +18,10 @@ public class User {
 	private String username;
 	private String password;
 	private boolean enabled;
-	
+
+	@OneToOne
+	private Character character;
+
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "users_roles",
@@ -65,5 +68,13 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
-	}	
+	}
+
+	public Character getCharacter() {
+		return character;
+	}
+
+	public void setCharacter(Character character) {
+		this.character = character;
+	}
 }

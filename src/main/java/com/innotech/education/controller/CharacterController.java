@@ -1,7 +1,10 @@
 package com.innotech.education.controller;
 
 import com.innotech.education.entity.Character;
+import com.innotech.education.entity.User;
+import com.innotech.education.repository.UserRepository;
 import com.innotech.education.service.CharacterService;
+import com.innotech.education.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +20,9 @@ public class CharacterController {
     @Autowired
     private CharacterService characterService;
 
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
     @RequestMapping(value = "/character", method = RequestMethod.GET)
     public ModelAndView character() {
         ModelAndView mav = new ModelAndView("character");
@@ -28,10 +34,15 @@ public class CharacterController {
         }
         else username = null;
 
-        Character chr = characterService.getCharacter(username);
-        mav.addObject("head", chr.getHead());
-        mav.addObject("body", chr.getBody());
-        mav.addObject("legs", chr.getLegs());
+        User user = userDetailsService.getUser(username);
+//        mav.addObject("innoCoin", user.getCharacter().getScore());
+//        mav.addObject("level", user.getCharacter().getLevel());
+//        mav.addObject("username", user.getUsername());
+//
+//        mav.addObject("head", user.getCharacter().getHead().getHeadPicture());
+//        mav.addObject("body", user.getCharacter().getBody().getBodyPicture());
+//        mav.addObject("legs", user.getCharacter().getLegs().getLegsPicture());
+        mav.addObject("user", user);
         return mav;
     }
 }

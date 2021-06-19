@@ -20,5 +20,5 @@ public class Legs {
 
     private int price;
     private int isBought;
-    String bodyPicture;
+    String legsPicture;
 }

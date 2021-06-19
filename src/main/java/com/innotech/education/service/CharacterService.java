@@ -11,5 +11,5 @@ public class CharacterService {
     @Autowired
     CharacterRepository characterRepository;
 
-    public Character getCharacter(String username){return characterRepository.findCharacterByUsername(username);}
+    public Character getCharacter(String username){return characterRepository.getCharacterByUsername(username);}
 }
