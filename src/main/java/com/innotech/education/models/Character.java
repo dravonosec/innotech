@@ -22,5 +22,15 @@ public class Character {
 
     @OneToOne
     private Body body;
+    @OneToOne
+    private Head head;
+    @OneToOne
+    private Legs legs;
+    @OneToOne
+    private User username;
+
+    private int score;
+    private int experience;
+    private int level;
 
 }

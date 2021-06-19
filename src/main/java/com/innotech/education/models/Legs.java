@@ -1,6 +1,5 @@
 package com.innotech.education.models;
 
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,8 +12,8 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "body_table")
-public class Body {
+@Table(name = "legs_table")
+public class Legs {
 
     @Id
     private long id;
@@ -22,5 +21,4 @@ public class Body {
     private int price;
     private int isBought;
     String bodyPicture;
-
 }
