@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Answer Control</title>
+</head>
+
+
+<body>
+
+<div align="center">
+    <h1>Answer Control</h1>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>Товар</th>
+            <th>Цена</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="head : ${heads}">
+            <td><img th:src="@{../__${head.getHeadPicture()}__}" alt="Hat" height="70" class="Hat" /></td>
+            <td>100</td>
+            <td><a href=""> Купить </a></td>
+            <td><a th:href="@{'/' + ${userId} + '/head_shop/' + ${head.getId()} + '/save'}"> Надеть </a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

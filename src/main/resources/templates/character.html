@@ -4,21 +4,46 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style type="text/css">
+    .Avatar {float: left; }
+    .Avatar IMG {float: left; }
+    .Avatar .Steve {position: relative; left:60px;}
+    .Avatar .Hat {position: relative; left: -20px; bottom:55px;}
+    .Avatar .Boots {position: relative; left: -114px; bottom:-180px;}
+</style>
+
+<style>
+    .btn {
+        display: inline-block; /* Строчно-блочный элемент /
+    background: #8C959D; / Серый цвет фона /
+    color: #fff; / Белый цвет текста /
+    padding: 1rem 1.5rem; / Поля вокруг текста /
+    text-decoration: none; / Убираем подчёркивание /
+    border-radius: 3px; / Скругляем уголки */
+    }
+</style>
 <body>
+
 <div>
     <div class="alert alert-warning mt-3">
         <b>Имя: <span th:text="${user.getUsername()}"></span></b><br />
         <b>Уровень: <span th:text="${user.getCharacter().getLevel()}"></span></b><br />
         <b>innoCoin: <span th:text="${user.getCharacter().getScore()}"></span></b><br />
-        
-        <b>Голова:</span></b><br />
-        <img class="img-thumbnail" th:src="${user.getCharacter().getHead().getHeadPicture()}"/>
-        <b>Тело: </span></b><br />
-        <img class="img-thumbnail" th:src="${user.getCharacter().getBody().getBodyPicture()}"/>
-        <b>Ноги: </span></b>
-        <img class="img-thumbnail" th:src="${user.getCharacter().getLegs().getLegsPicture()}"/>
-
+<!--        <b>Голова:</span></b><br />-->
+<!--        <img class="img-thumbnail" th:src="${user.getCharacter().getHead().getHeadPicture()}"/>-->
+<!--        <b>Тело: </span></b><br />-->
+<!--        <img class="img-thumbnail" th:src="${user.getCharacter().getBody().getBodyPicture()}"/>-->
+<!--        <b>Ноги: </span></b>-->
+<!--        <img class="img-thumbnail" th:src="${user.getCharacter().getLegs().getLegsPicture()}"/>-->
     </div>
 </div>
+<hr />
+<p class="Avatar">
+    <img th:src="@{images/Steve.png}" alt="Steve" height="200" class="Steve" />
+    <img th:src="@{${user.getCharacter().getHead().getHeadPicture()}}" alt="Hat" height="70" class="Hat" />
+    <img th:src="@{${user.getCharacter().getLegs().getLegsPicture()}}" alt="Boots" width="80" class="Boots" />
+</p>
+<a th:href="@{'/' + ${user.getId()} + '/head_shop'}" class="btn">Магазин шляп</a>
+<a th:href="@{'/' + ${user.getId()} + '/boots_shop'}" class="btn">Магазин обуви</a>
 </body>
 </html>

@@ -18,9 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class CharacterController {
 
     @Autowired
-    private CharacterService characterService;
-
-    @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
     @RequestMapping(value = "/character", method = RequestMethod.GET)
@@ -35,13 +32,7 @@ public class CharacterController {
         else username = null;
 
         User user = userDetailsService.getUser(username);
-//        mav.addObject("innoCoin", user.getCharacter().getScore());
-//        mav.addObject("level", user.getCharacter().getLevel());
-//        mav.addObject("username", user.getUsername());
-//
-//        mav.addObject("head", user.getCharacter().getHead().getHeadPicture());
-//        mav.addObject("body", user.getCharacter().getBody().getBodyPicture());
-//        mav.addObject("legs", user.getCharacter().getLegs().getLegsPicture());
+
         mav.addObject("user", user);
         return mav;
     }
