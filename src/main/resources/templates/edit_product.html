@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="ISO-8859-1">
 <title>Edit Product</title>
+	<style type="text/css">
+
+		.wrapper {
+			height: 100vh;
+			display: inherit;
+
+		/ / Direction of the items, can be row or column flex-direction: column;
+		}
+
+		header {
+			height: 60px;
+			background-color: #222222;
+			color: white;
+			line-height: 140%;
+			font-size: large;
+
+		}
+
+	</style>
 </head>
+
 <body>
+<div class="wrapper">
+	<header>
+		<div align="right" sec:authorize="isAuthenticated()">
+			Welcome <b><span sec:authentication="name">Username</span></b>
+			&nbsp;
+			<i><span sec:authentication="principal.authorities">Roles</span></i>
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Logout"/>
+			</form>
+		</div>
+	</header>
 	<div align="center">
 		<h1>Edit Product</h1>
 		<br/>
@@ -36,5 +68,6 @@
 			</table>
 		</form>
 	</div>
+</div>
 </body>
 </html>

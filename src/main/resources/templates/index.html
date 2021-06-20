@@ -1,57 +1,211 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<meta charset="ISO-8859-1">
-<title>Product Manager</title>
+	<meta charset="ISO-8859-1">
+	<title>Product Manager</title>
+
+	<script type="text/javascript" src="https://visjs.org/dist/vis.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+	<script src="https://vk.com/js/api/openapi.js?160" type="text/javascript"></script>
+	<link href="https://visjs.org/dist/vis-network.min.css" rel="stylesheet" type="text/css"/>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css"/>
+
+
+	<script
+			type="text/javascript"
+			src="../../standalone/umd/vis-network.min.js"
+	></script>
+
+	<style type="text/css">
+
+		#mynetwork {
+			width: 600px;
+			height: 400px;
+			border: 1px solid lightgray;
+			margin-left: 1%; /* ?????? ????? */
+			margin-top: 9%;
+			background-color: #222222;
+			display: inline-block;
+			float: left;
+		}
+
+		#table {
+			display: inline-block;
+			float: left;
+		}
+
+		.wrapper {
+			height: 100vh;
+			display: inherit;
+
+		/ / Direction of the items, can be row or column flex-direction: column;
+		}
+
+		header {
+			height: 60px;
+			background-color: #222222;
+			color: white;
+			line-height: 140%;
+			font-size: large;
+
+		}
+
+
+
+	</style>
 </head>
 <body>
-<div align="center">	
-	<div sec:authorize="isAuthenticated()">
-		Welcome <b><span sec:authentication="name">Username</span></b>
-		&nbsp;
-		<i><span sec:authentication="principal.authorities">Roles</span></i>
-	</div>
-		
-	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="Logout" />
-	</form>
-	
-	<h1>Product Manager</h1>
-	<div sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">
-		<a href="new">Create New Product</a>
-	</div>
-	
-	<br/><br/>
-	<table border="1" cellpadding="10">
-		<thead>
+<div class="wrapper">
+	<header>
+		<div align="right" sec:authorize="isAuthenticated()">
+			Welcome <b><span sec:authentication="name">Username</span></b>
+			&nbsp;
+			<i><span sec:authentication="principal.authorities">Roles</span></i>
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Logout"/>
+			</form>
+		</div>
+	</header>
+	<div id="table">
+
+
+		<h1 align="center">Courses</h1>
+		<div align="center" sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">
+			<a href="new">Create New Product</a>
+		</div>
+
+		<br/><br/>
+		<table border="1" cellpadding="10">
+			<thead>
 			<tr>
 				<th>Product ID</th>
 				<th>Name</th>
 				<th>Brand</th>
 				<th>Made In</th>
 				<th>Price</th>
-				
-				<th sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">Actions</th>				
-				
+
+
+				<th sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">Actions</th>
+
 			</tr>
-		</thead>
-		<tbody>
+			</thead>
+			<tbody>
 			<tr th:each="product : ${listProducts}">
 				<td th:text="${product.id}">Product ID</td>
 				<td th:text="${product.name}">Name</td>
 				<td th:text="${product.brand}">Brand</td>
 				<td th:text="${product.madein}">Made in</td>
 				<td th:text="${product.price}">Price</td>
-				
 				<td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
-					<a th:href="@{'/edit/' + ${product.id}}">Edit</a>			
+					<a th:href="@{'/edit/' + ${product.id}}">Edit</a>
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/' + ${product.id}}">Delete</a>
 				</td>
 			</tr>
-		</tbody>
-	</table>
+			</tbody>
+		</table>
+	</div>
+
+	<div id="mynetwork">
+
+		<script type="text/javascript">
+
+
+			// create an array with nodes
+			var nodes = new vis.DataSet([
+				{id: 1, label: "english course"},
+				{id: 2, label: "java junior course"},
+				{id: 3, label: "java middle course"},
+				{id: 4, label: "java senior course"},
+				{id: 5, label: "sql course level 1"},
+				{id: 6, label: "sql course level 2"},
+
+				{id: 7, label: "basic programming skills"},
+				{id: 8, label: "algorithms"},
+				{id: 9, label: "kotlin 1"},
+				{id: 10, label: "kotlin 2"},
+				{id: 11, label: "android 1"},
+				{id: 12, label: "android 2"},
+				{id: 13, label: "android 3"},
+			]);
+
+			// create an array with edges
+			var edges = new vis.DataSet([
+				{from: 2, to: 3},
+				{from: 3, to: 4},
+				{from: 5, to: 6},
+				{from: 7, to: 8},
+				{from: 2, to: 9},
+				{from: 9, to: 10},
+				{from: 8, to: 2},
+				{from: 2, to: 11},
+				{from: 11, to: 12},
+				{from: 12, to: 13},
+				{from: 6, to: 3},
+
+			]);
+
+			// create a network
+			var container = document.getElementById("mynetwork");
+			var data = {
+				nodes: nodes,
+				edges: edges,
+			};
+			var options = {
+
+				nodes: {
+					borderWidth: 2,
+					size: 30,
+					color: {
+						border: '#222222',
+						background: '#8FD9D9',
+						highlight: {
+							background: '#F2D8EB',
+							border: '#222222'
+						}
+					},
+					shape: 'dot',
+					radius: 10,
+					font: {size: 14, color: '#ffffff'}
+
+				},
+				edges: {
+					arrowStrikethrough:false,
+					arrows:{
+						to:{
+							enabled: true,
+						}
+					},
+					scaling: {
+						customScalingFunction: function (min, max, total, value) {
+							return value / total;
+						},
+						min: 1,
+						max: 200
+					},
+					color: {
+						color: '#848484',
+						highlight: '#97D984',
+						hover: '#d3d2cd',
+						inherit: false,
+						opacity: 1.0,
+
+					},
+					width: 10
+
+				}
+
+			};
+			var network = new vis.Network(container, data, options);
+
+
+
+
+		</script>
+	</div>
 </div>
+
 </body>
+
 </html>

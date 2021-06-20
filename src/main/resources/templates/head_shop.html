@@ -1,14 +1,43 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="utf-8"/>
 <title>Answer Control</title>
+    <style type="text/css">
+
+        .wrapper {
+            height: 100vh;
+            display: inherit;
+
+        / / Direction of the items, can be row or column flex-direction: column;
+        }
+
+        header {
+            height: 60px;
+            background-color: #222222;
+            color: white;
+            line-height: 140%;
+            font-size: large;
+
+        }
+
+    </style>
 </head>
 
 
 <body>
-
+<div class="wrapper">
+    <header>
+        <div align="right" sec:authorize="isAuthenticated()">
+            Welcome <b><span sec:authentication="name">Username</span></b>
+            &nbsp;
+            <i><span sec:authentication="principal.authorities">Roles</span></i>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Logout"/>
+            </form>
+        </div>
+    </header>
 <div align="center">
     <h1>Answer Control</h1>
     <table border="1" cellpadding="10">
@@ -27,6 +56,7 @@
         </tr>
         </tbody>
     </table>
+</div>
 </div>
 </body>
 </html>

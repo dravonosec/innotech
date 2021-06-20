@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/%22%3E">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -12,17 +13,37 @@
     .Avatar .Boots {position: relative; left: -114px; bottom:-180px;}
 </style>
 
-<style>
-    .btn {
-        display: inline-block; /* Строчно-блочный элемент /
-    background: #8C959D; / Серый цвет фона /
-    color: #fff; / Белый цвет текста /
-    padding: 1rem 1.5rem; / Поля вокруг текста /
-    text-decoration: none; / Убираем подчёркивание /
-    border-radius: 3px; / Скругляем уголки */
+<style type="text/css">
+
+    .wrapper {
+        height: 100vh;
+        display: inherit;
+
+    / / Direction of the items, can be row or column flex-direction: column;
     }
+
+    header {
+        height: 60px;
+        background-color: #222222;
+        color: white;
+        line-height: 140%;
+        font-size: large;
+
+    }
+
 </style>
 <body>
+<div class="wrapper">
+    <header>
+        <div align="right" sec:authorize="isAuthenticated()">
+            Welcome <b><span sec:authentication="name">Username</span></b>
+            &nbsp;
+            <i><span sec:authentication="principal.authorities">Roles</span></i>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Logout"/>
+            </form>
+        </div>
+    </header>
 
 <div>
     <div class="alert alert-warning mt-3">
@@ -45,5 +66,6 @@
 </p>
 <a th:href="@{'/' + ${user.getId()} + '/head_shop'}" class="btn">Магазин шляп</a>
 <a th:href="@{'/' + ${user.getId()} + '/boots_shop'}" class="btn">Магазин обуви</a>
+</div>
 </body>
 </html>
